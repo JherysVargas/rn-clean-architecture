@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, Pressable, Text, Image, StyleSheet} from 'react-native';
 import moment from 'moment';
-import {IProduct} from '../../../../data/interfaces/product_interface';
-import {greenColor, redColor} from '../../../../core/theme/colors';
+import {IProduct} from '../../../../domain/interfaces/product/product';
+import {greenColor, redColor} from '../../../../config/theme/colors';
 import {useProductListController} from '../product_list_controller';
 
 type IPropsItemList = {

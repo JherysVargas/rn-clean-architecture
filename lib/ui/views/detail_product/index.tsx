@@ -1,11 +1,12 @@
 import React, {useEffect} from 'react';
-import {View, ScrollView, Text, Image, StyleSheet} from 'react-native';
+import {View, ScrollView, Text, Image} from 'react-native';
 import {useSelector} from 'react-redux';
-import {RootState} from '../../../core/redux/config';
-import {IProduct} from '../../../data/interfaces/product_interface';
+import {RootState} from '../../../core/providers/config';
+import {IProduct} from '../../../domain/interfaces/product/product';
 import TitleSection from '../../components/title_section';
 import moment from 'moment';
 import Button from '../../components/button';
+import {styles} from './styles';
 
 const DetailProduct = ({navigation}: any) => {
   const detailProduct: IProduct = useSelector<RootState, IProduct>(
@@ -40,45 +41,5 @@ const DetailProduct = ({navigation}: any) => {
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-  },
-  containerImage: {
-    height: 350,
-    padding: 75,
-    borderRadius: 10,
-    marginBottom: 35,
-    backgroundColor: '#ffffff',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  image: {
-    flex: 1,
-  },
-  dateText: {
-    fontSize: 16,
-    fontWeight: '800',
-    marginVertical: 20,
-  },
-  pointsText: {
-    fontSize: 24,
-    marginTop: 32,
-    fontWeight: '800',
-  },
-  textTitle: {
-    fontSize: 14,
-  },
-  button: {
-    marginTop: 50,
-  },
-});
 
 export default DetailProduct;

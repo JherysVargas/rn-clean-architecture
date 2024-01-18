@@ -1,36 +1,44 @@
-import axios from 'axios';
 import {
   setProductsList,
   setSelectedFilter,
   setSelectedProduct,
-} from '../../../core/redux/reducers/products_reducer';
+} from '../../../core/providers/reducers/products';
 import {useDispatch} from 'react-redux';
-import {FilterType} from '../../../data/enums/filters_enum';
+import {FilterType} from '../../../domain/enums/filters_enum';
 import {useNavigation} from '@react-navigation/native';
-import {IProduct} from '../../../data/interfaces/product_interface';
-import {Navigation} from '../../../data/types/navigation_type';
-import ProductService from '../../../core/services/product_service';
+import {IProduct} from '../../../domain/interfaces/product/product';
+import {Navigation} from '../../../domain/types/navigation_type';
+import {injector} from '../../../core/di';
+import {ProductGateway} from '../../../domain/interfaces';
+import {useCallback} from 'react';
+
+const productService = injector.get<ProductGateway>('ProductUseCase');
 
 export const useProductListController = () => {
-  const productService = new ProductService(axios);
   const dispatch = useDispatch();
   const navigation = useNavigation<Navigation>();
 
-  const getProdcts = async (): Promise<void> => {
+  const getProdcts = useCallback(async (): Promise<void> => {
     const products = await productService.getProducts();
     if (products) {
       dispatch(setProductsList(products));
     }
-  };
+  }, [dispatch]);
 
-  const handleSelectedFilter = (value: FilterType): void => {
-    dispatch(setSelectedFilter(value));
-  };
+  const handleSelectedFilter = useCallback(
+    (value: FilterType): void => {
+      dispatch(setSelectedFilter(value));
+    },
+    [dispatch],
+  );
 
-  const handleDetailProduct = (product: IProduct): void => {
-    dispatch(setSelectedProduct(product));
-    navigation.navigate('DetailProduct');
-  };
+  const handleDetailProduct = useCallback(
+    (product: IProduct): void => {
+      dispatch(setSelectedProduct(product));
+      navigation.navigate('DetailProduct');
+    },
+    [dispatch, navigation],
+  );
 
   return {
     getProdcts,

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Provider} from 'react-redux';
-import {store} from './lib/core/redux/config';
-import Routes from './lib/core/routes/index';
+import {store} from './lib/core/providers/config';
+import Routes from './lib/config/routes';
 import moment from 'moment';
 import 'moment/locale/es';
 

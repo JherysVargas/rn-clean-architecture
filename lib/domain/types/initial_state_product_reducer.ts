@@ -1,11 +1,9 @@
 import {FilterType} from '../enums/filters_enum';
-import {IProduct} from '../interfaces/product_interface';
+import {IProduct} from '../interfaces/product/product';
 
-declare interface InitialStateProductReducer {
+export type InitialStateProductReducer = {
   allProductList: IProduct[];
   filterProductList: IProduct[];
   detailProduct: IProduct | undefined;
   selectedFilter: FilterType;
-}
-
-export default InitialStateProductReducer;
+};

@@ -1,12 +1,12 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import RNPickerSelect, {Item} from 'react-native-picker-select';
-import {FilterType} from '../../../../data/enums/filters_enum';
+import {FilterType} from '../../../../domain/enums/filters_enum';
 import {Chevron} from 'react-native-shapes';
-import {primaryColor} from '../../../../core/theme/colors';
+import {primaryColor} from '../../../../config/theme/colors';
 import {useProductListController} from '../product_list_controller';
 import {useSelector} from 'react-redux';
-import {RootState} from '../../../../core/redux/config';
+import {RootState} from '../../../../core/providers/config';
 
 const filters: Item[] = [
   {label: 'Todos', value: FilterType.ALL},

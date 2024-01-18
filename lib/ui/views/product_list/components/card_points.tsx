@@ -1,11 +1,11 @@
 import React, {useMemo} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import TitleSection from '../../../components/title_section';
-import {primaryColor} from '../../../../core/theme/colors';
+import {primaryColor} from '../../../../config/theme/colors';
 import {useCurrencyFormat} from '../../../../core/hooks/use_currency_format';
 import {useSelector} from 'react-redux';
-import {IProduct} from '../../../../data/interfaces/product_interface';
-import {RootState} from '../../../../core/redux/config';
+import {IProduct} from '../../../../domain/interfaces/product/product';
+import {RootState} from '../../../../core/providers/config';
 
 const CardPoints = () => {
   const products = useSelector<RootState, IProduct[]>(

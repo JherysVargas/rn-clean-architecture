@@ -6,7 +6,7 @@ import {
   GestureResponderEvent,
   ViewStyle,
 } from 'react-native';
-import {primaryColor} from '../../core/theme/colors';
+import {primaryColor} from '../../config/theme/colors';
 
 type IPropsButton = {
   label: string;

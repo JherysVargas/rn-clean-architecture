@@ -2,8 +2,8 @@ import React, {useCallback} from 'react';
 import {View, StyleSheet, FlatList, ListRenderItem} from 'react-native';
 import TitleSection from '../../../components/title_section';
 import {useSelector} from 'react-redux';
-import {IProduct} from '../../../../data/interfaces/product_interface';
-import {RootState} from '../../../../core/redux/config';
+import {IProduct} from '../../../../domain/interfaces/product/product';
+import {RootState} from '../../../../core/providers/config';
 import ItemList from './item_list';
 import Filters from './filters';
 

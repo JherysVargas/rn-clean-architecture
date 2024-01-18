@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, StyleSheet, TextStyle} from 'react-native';
-import {greyColor} from '../../core/theme/colors';
+import {greyColor} from '../../config/theme/colors';
 
 type IPropsTitleSection = {
   title: string;

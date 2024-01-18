@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {initialStateProductReducer} from './initial_state';
-import {FilterType} from '../../../../data/enums/filters_enum';
-import {IProduct} from '../../../../data/interfaces/product_interface';
+import {FilterType} from '../../../../domain/enums/filters_enum';
+import {IProduct} from '../../../../domain/interfaces/product/product';
 
 const productsSlice = createSlice({
   name: 'products',
