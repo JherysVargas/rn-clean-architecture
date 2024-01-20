@@ -8,7 +8,7 @@ import moment from 'moment';
 import Button from '../../components/button';
 import {styles} from './styles';
 
-const DetailProduct = ({navigation}: any) => {
+export const DetailProduct = ({navigation}: any) => {
   const detailProduct: IProduct = useSelector<RootState, IProduct>(
     state => state.products.detailProduct!,
   );
@@ -41,5 +41,3 @@ const DetailProduct = ({navigation}: any) => {
     </ScrollView>
   );
 };
-
-export default DetailProduct;

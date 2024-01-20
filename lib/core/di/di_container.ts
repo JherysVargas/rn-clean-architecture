@@ -10,7 +10,13 @@ class DependencyContainer {
   }
 
   private register<T>(identifier: string, dependency: T) {
-    this.dependencies.set(identifier, dependency);
+    if (this.canRegister(identifier)) {
+      this.dependencies.set(identifier, dependency);
+    }
+  }
+
+  private canRegister(identifier: string): boolean {
+    return !this.dependencies.has(identifier);
   }
 
   get<T>(identifier: string): T {

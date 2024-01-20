@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-const HeaderListProducts = () => {
+export const HeaderListProducts = () => {
   return (
     <View>
       <Text style={styles.title}>Bienvenido de vuelta!</Text>
@@ -22,5 +22,3 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
 });
-
-export default HeaderListProducts;

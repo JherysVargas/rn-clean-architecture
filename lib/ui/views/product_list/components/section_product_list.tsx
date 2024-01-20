@@ -1,22 +1,24 @@
 import React, {useCallback} from 'react';
 import {View, StyleSheet, FlatList, ListRenderItem} from 'react-native';
 import TitleSection from '../../../components/title_section';
-import {useSelector} from 'react-redux';
 import {IProduct} from '../../../../domain/interfaces/product/product';
-import {RootState} from '../../../../core/providers/config';
-import ItemList from './item_list';
-import Filters from './filters';
+import {ItemList} from './item_list';
+import {Filters} from './filters';
+import {useProducts} from '../useProducts';
 
 const renderSeparator = () => <View style={styles.separator} />;
 
-const SectionProductList = () => {
-  const products = useSelector<RootState, IProduct[]>(
-    state => state.products.filterProductList,
-  );
+export const SectionProductList = () => {
+  const {data, handleDetailProduct} = useProducts();
 
-  const _renderItem: ListRenderItem<IProduct> = useCallback(({item}) => {
-    return <ItemList product={item} />;
-  }, []);
+  const _renderItem: ListRenderItem<IProduct> = useCallback(
+    ({item}) => {
+      return (
+        <ItemList handleDetailProduct={handleDetailProduct} product={item} />
+      );
+    },
+    [handleDetailProduct],
+  );
 
   return (
     <View style={styles.container}>
@@ -25,7 +27,7 @@ const SectionProductList = () => {
         <Filters />
       </View>
       <FlatList
-        data={products}
+        data={data}
         nestedScrollEnabled
         renderItem={_renderItem}
         style={styles.containerList}
@@ -61,5 +63,3 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
 });
-
-export default SectionProductList;

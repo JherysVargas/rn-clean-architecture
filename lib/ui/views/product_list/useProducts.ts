@@ -1,5 +1,4 @@
 import {
-  setProductsList,
   setSelectedFilter,
   setSelectedProduct,
 } from '../../../core/providers/reducers/products';
@@ -11,19 +10,18 @@ import {Navigation} from '../../../domain/types/navigation_type';
 import {injector} from '../../../core/di';
 import {ProductGateway} from '../../../domain/interfaces';
 import {useCallback} from 'react';
+import {useQuery} from 'react-query';
 
 const productService = injector.get<ProductGateway>('ProductUseCase');
 
-export const useProductListController = () => {
+export const useProducts = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation<Navigation>();
-
-  const getProdcts = useCallback(async (): Promise<void> => {
-    const products = await productService.getProducts();
-    if (products) {
-      dispatch(setProductsList(products));
-    }
-  }, [dispatch]);
+  const {data, isLoading, error} = useQuery<IProduct[]>({
+    queryKey: ['products'],
+    queryFn: () => productService.getProducts(),
+    initialData: [],
+  });
 
   const handleSelectedFilter = useCallback(
     (value: FilterType): void => {
@@ -41,7 +39,9 @@ export const useProductListController = () => {
   );
 
   return {
-    getProdcts,
+    data,
+    isLoading,
+    error,
     handleDetailProduct,
     handleSelectedFilter,
   };

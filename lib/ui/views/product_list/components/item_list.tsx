@@ -3,15 +3,13 @@ import {View, Pressable, Text, Image, StyleSheet} from 'react-native';
 import moment from 'moment';
 import {IProduct} from '../../../../domain/interfaces/product/product';
 import {greenColor, redColor} from '../../../../config/theme/colors';
-import {useProductListController} from '../product_list_controller';
 
 type IPropsItemList = {
   product: IProduct;
+  handleDetailProduct: (product: IProduct) => void;
 };
 
-const ItemList = ({product}: IPropsItemList) => {
-  const {handleDetailProduct} = useProductListController();
-
+export const ItemList = ({product, handleDetailProduct}: IPropsItemList) => {
   return (
     <Pressable
       onPress={_ => handleDetailProduct(product)}
@@ -88,5 +86,3 @@ const styles = StyleSheet.create({
     color: redColor,
   },
 });
-
-export default ItemList;

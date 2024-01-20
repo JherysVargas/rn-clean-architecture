@@ -3,26 +3,22 @@ import {Text, View, StyleSheet} from 'react-native';
 import TitleSection from '../../../components/title_section';
 import {primaryColor} from '../../../../config/theme/colors';
 import {useCurrencyFormat} from '../../../../core/hooks/use_currency_format';
-import {useSelector} from 'react-redux';
-import {IProduct} from '../../../../domain/interfaces/product/product';
-import {RootState} from '../../../../core/providers/config';
+import {useProducts} from '../useProducts';
 
-const CardPoints = () => {
-  const products = useSelector<RootState, IProduct[]>(
-    state => state.products.allProductList,
+export const CardPoints = () => {
+  const {data} = useProducts();
+
+  const _getTotalPoints = useMemo(
+    () =>
+      data?.reduce<number>((prev, current) => {
+        if (current.is_redemption) {
+          prev += current.points;
+        }
+
+        return prev;
+      }, 0),
+    [data],
   );
-
-  const _getTotalPoints = useMemo(() => {
-    let accumulator: number = 0;
-
-    for (const product of products) {
-      if (product.is_redemption) {
-        accumulator += product.points;
-      }
-    }
-
-    return accumulator;
-  }, [products]);
 
   return (
     <View>
@@ -31,7 +27,7 @@ const CardPoints = () => {
         <Text style={styles.monthText}>Diciembre</Text>
         <View style={styles.containerPoints}>
           <Text style={styles.pointText}>
-            {useCurrencyFormat(_getTotalPoints)} pts
+            {useCurrencyFormat(_getTotalPoints!)} pts
           </Text>
         </View>
       </View>
@@ -72,5 +68,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
-export default CardPoints;

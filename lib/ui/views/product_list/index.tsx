@@ -1,26 +1,24 @@
-import React, {useEffect} from 'react';
-import {View, StyleSheet} from 'react-native';
-import HeaderListProducts from './components/header';
+import React from 'react';
+import {View, StyleSheet, ActivityIndicator} from 'react-native';
 import {useHeaderHeight} from '@react-navigation/elements';
-import CardPoints from './components/card_points';
-import SectionProductList from './components/section_product_list';
-import {useProductListController} from './product_list_controller';
+import {CardPoints} from './components/card_points';
+import {SectionProductList} from './components/section_product_list';
+import {useProducts} from './useProducts';
 
-const ListProducts = ({navigation}: any) => {
+export const ListProducts: React.FC = () => {
   const headerHeight = useHeaderHeight();
-  const {getProdcts} = useProductListController();
-
-  useEffect(() => {
-    navigation.setOptions({
-      headerLeft: HeaderListProducts,
-    });
-    getProdcts();
-  }, [navigation, getProdcts]);
+  const {isLoading} = useProducts();
 
   return (
     <View style={{...styles.container, paddingTop: headerHeight + 25}}>
-      <CardPoints />
-      <SectionProductList />
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <>
+          <CardPoints />
+          <SectionProductList />
+        </>
+      )}
     </View>
   );
 };
@@ -31,5 +29,3 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
   },
 });
-
-export default ListProducts;

@@ -4,7 +4,7 @@ import RNPickerSelect, {Item} from 'react-native-picker-select';
 import {FilterType} from '../../../../domain/enums/filters_enum';
 import {Chevron} from 'react-native-shapes';
 import {primaryColor} from '../../../../config/theme/colors';
-import {useProductListController} from '../product_list_controller';
+import {useProducts} from '../useProducts';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../../core/providers/config';
 
@@ -14,11 +14,11 @@ const filters: Item[] = [
   {label: 'Canjeados', value: FilterType.NEGATIVE},
 ];
 
-const Filters = () => {
+export const Filters = () => {
   const selectedFilter = useSelector<RootState, FilterType>(
     state => state.products.selectedFilter,
   );
-  const {handleSelectedFilter} = useProductListController();
+  const {handleSelectedFilter} = useProducts();
 
   return (
     <View style={styles.containerPicker}>
@@ -60,5 +60,3 @@ const styles = StyleSheet.create({
     color: primaryColor,
   },
 });
-
-export default Filters;
