@@ -15,18 +15,19 @@ const filters: Item[] = [
 ];
 
 export const Filters = () => {
-  const selectedFilter = useSelector<RootState, FilterType>(
+  const {handleSelectedFilter} = useProducts();
+
+  const filter = useSelector<RootState, FilterType>(
     state => state.products.selectedFilter,
   );
-  const {handleSelectedFilter} = useProducts();
 
   return (
     <View style={styles.containerPicker}>
       <RNPickerSelect
         items={filters}
         style={styles}
-        value={selectedFilter}
-        onValueChange={handleSelectedFilter}
+        value={filter}
+        onValueChange={(_, index) => handleSelectedFilter(filters[index].value)}
         placeholder={{}}
         useNativeAndroidPickerStyle={false}
       />

@@ -1,7 +1,7 @@
 import {
   setSelectedFilter,
   setSelectedProduct,
-} from '../../../core/providers/reducers/products';
+} from '../../../core/providers/products_redux/products';
 import {useDispatch} from 'react-redux';
 import {FilterType} from '../../../domain/enums/filters_enum';
 import {useNavigation} from '@react-navigation/native';
@@ -17,6 +17,7 @@ const productService = injector.get<ProductGateway>('ProductUseCase');
 export const useProducts = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation<Navigation>();
+
   const {data, isLoading, error} = useQuery<IProduct[]>({
     queryKey: ['products'],
     queryFn: () => productService.getProducts(),
