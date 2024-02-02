@@ -12,7 +12,12 @@ import {FilterType} from '../../../../domain/enums/filters_enum';
 const renderSeparator = () => <View style={styles.separator} />;
 
 export const SectionProductList = () => {
-  const {data, handleDetailProduct} = useProducts();
+  const {handleDetailProduct} = useProducts();
+
+  const data: IProduct[] = useSelector<RootState, IProduct[]>(
+    state => state.products.products!,
+  );
+
   const filter = useSelector<RootState, FilterType>(
     state => state.products.selectedFilter,
   );

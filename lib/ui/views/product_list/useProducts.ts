@@ -1,4 +1,5 @@
 import {
+  setProducts,
   setSelectedFilter,
   setSelectedProduct,
 } from '../../../core/providers/products_redux/products';
@@ -7,22 +8,18 @@ import {FilterType} from '../../../domain/enums/filters_enum';
 import {useNavigation} from '@react-navigation/native';
 import {IProduct} from '../../../domain/interfaces/product/product';
 import {Navigation} from '../../../domain/types/navigation_type';
-import {injector} from '../../../core/di';
-import {ProductGateway} from '../../../domain/interfaces';
 import {useCallback} from 'react';
-import {useQuery} from 'react-query';
-
-const productService = injector.get<ProductGateway>('ProductUseCase');
 
 export const useProducts = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation<Navigation>();
 
-  const {data, isLoading, error} = useQuery<IProduct[]>({
-    queryKey: ['products'],
-    queryFn: () => productService.getProducts(),
-    initialData: [],
-  });
+  const handleSetProducts = useCallback(
+    (products: IProduct[]): void => {
+      dispatch(setProducts(products));
+    },
+    [dispatch],
+  );
 
   const handleSelectedFilter = useCallback(
     (value: FilterType): void => {
@@ -40,9 +37,7 @@ export const useProducts = () => {
   );
 
   return {
-    data,
-    isLoading,
-    error,
+    handleSetProducts,
     handleDetailProduct,
     handleSelectedFilter,
   };

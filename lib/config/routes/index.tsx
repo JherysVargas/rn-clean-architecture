@@ -6,8 +6,14 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ListProducts} from '../../ui/views/product_list/index';
 import {DetailProduct} from '../../ui/views/detail_product';
 import {HeaderListProducts} from '../../ui/views/product_list/components/header';
+import {injector} from '../../core/di';
+import {ProductGateway} from '../../domain/interfaces';
 
 const Stack = createNativeStackNavigator();
+
+const productService = injector.get<ProductGateway>('ProductUseCase');
+
+const RenderListProducts = () => <ListProducts service={productService} />;
 
 function Routes() {
   return (
@@ -15,7 +21,7 @@ function Routes() {
       <Stack.Navigator initialRouteName="ListProducts">
         <Stack.Screen
           name="ListProducts"
-          component={ListProducts}
+          component={RenderListProducts}
           options={{
             title: '',
             headerTransparent: true,
