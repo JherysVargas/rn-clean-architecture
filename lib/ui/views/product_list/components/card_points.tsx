@@ -3,14 +3,10 @@ import {Text, View, StyleSheet} from 'react-native';
 import TitleSection from '../../../components/title_section';
 import {primaryColor} from '../../../../config/theme/colors';
 import {useCurrencyFormat} from '../../../../core/hooks/use_currency_format';
-import {IProduct} from '../../../../domain/interfaces';
-import {useSelector} from 'react-redux';
-import {RootState} from '../../../../core/providers/config';
+import {useProducts} from '../useProducts';
 
 export const CardPoints = () => {
-  const data: IProduct[] = useSelector<RootState, IProduct[]>(
-    state => state.products.products!,
-  );
+  const {data} = useProducts();
 
   const _getTotalPoints = useMemo(
     () =>
