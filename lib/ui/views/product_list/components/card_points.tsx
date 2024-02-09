@@ -6,18 +6,18 @@ import {useCurrencyFormat} from '../../../../core/hooks/use_currency_format';
 import {useProducts} from '../useProducts';
 
 export const CardPoints = () => {
-  const {data} = useProducts();
+  const {products} = useProducts();
 
   const _getTotalPoints = useMemo(
     () =>
-      data?.reduce<number>((prev, current) => {
+      products.data?.reduce<number>((prev, current) => {
         if (current.is_redemption) {
           prev += current.points;
         }
 
         return prev;
       }, 0),
-    [data],
+    [products],
   );
 
   return (

@@ -7,10 +7,11 @@ import {useProducts} from './useProducts';
 
 export const ListProducts: React.FC = () => {
   const headerHeight = useHeaderHeight();
-  const {isLoading} = useProducts();
+  const {products} = useProducts();
+
   return (
     <View style={{...styles.container, paddingTop: headerHeight + 25}}>
-      {isLoading ? (
+      {products.isLoading ? (
         <ActivityIndicator />
       ) : (
         <>

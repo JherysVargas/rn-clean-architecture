@@ -12,7 +12,7 @@ import {FilterType} from '../../../../domain/enums/filters_enum';
 const renderSeparator = () => <View style={styles.separator} />;
 
 export const SectionProductList = () => {
-  const {data, handleDetailProduct} = useProducts();
+  const {products, handleDetailProduct} = useProducts();
 
   const filter = useSelector<RootState, FilterType>(
     state => state.products.selectedFilter,
@@ -30,16 +30,20 @@ export const SectionProductList = () => {
   const filterData = useMemo(() => {
     switch (filter) {
       case FilterType.NEGATIVE: {
-        return data!.filter((product: IProduct) => product.is_redemption);
+        return products.data!.filter(
+          (product: IProduct) => product.is_redemption,
+        );
       }
       case FilterType.POSITIVE: {
-        return data!.filter((product: IProduct) => !product.is_redemption);
+        return products.data!.filter(
+          (product: IProduct) => !product.is_redemption,
+        );
       }
       default: {
-        return data;
+        return products.data;
       }
     }
-  }, [data, filter]);
+  }, [products, filter]);
 
   return (
     <View style={styles.container}>
