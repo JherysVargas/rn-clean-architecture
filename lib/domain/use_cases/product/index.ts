@@ -1,9 +1,20 @@
-import {IProduct, ProductGateway} from '../../interfaces';
+import {ProductGateway} from '../../interfaces';
+import {useQuery} from '@tanstack/react-query';
 
-export class ProductUseCase {
-  constructor(private readonly _productGateway: ProductGateway) {}
+type Props = {
+  productGateway: ProductGateway;
+};
 
-  async getProducts(): Promise<IProduct[]> {
-    return this._productGateway.getProducts();
-  }
-}
+export const useProductsUseCase = ({productGateway}: Props) => {
+  const response = useQuery({
+    queryKey: ['products'],
+    queryFn: () => productGateway.getProducts(),
+  });
+  return {
+    products: {
+      data: response.data,
+      error: response.error,
+      isLoading: response.isLoading,
+    },
+  };
+};

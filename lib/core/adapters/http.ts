@@ -1,6 +1,7 @@
-import axios, {AxiosRequestConfig, AxiosResponse, AxiosStatic} from 'axios';
+import axios, {AxiosStatic} from 'axios';
+import {HttpInstance, Params, Response} from './types';
 
-export class HttpAdapter {
+export class HttpAdapter implements HttpInstance {
   private readonly _axios: AxiosStatic;
 
   constructor() {
@@ -17,43 +18,38 @@ export class HttpAdapter {
     });
   }
 
-  get<T = any, R = AxiosResponse<T, any>, D = any>(
+  get<T = any, R = Response<T, any>, D = any>(
     url: string,
-    config?: AxiosRequestConfig<D> | undefined,
+    params?: Params<D> | undefined,
   ): Promise<R> {
-    return this._axios.get(url, config);
+    return this._axios.get(url, params?.config);
   }
 
-  post<T = any, R = AxiosResponse<T>, D = any>(
+  post<T = any, R = Response<T>, D = any>(
     url: string,
-    data?: D,
-    config?: AxiosRequestConfig<D>,
+    params?: Params<D>,
   ): Promise<R> {
-    return this._axios.post(url, data, config);
+    return this._axios.post(url, params?.data, params?.config);
   }
 
-  put<T = any, R = AxiosResponse<T>, D = any>(
+  put<T = any, R = Response<T>, D = any>(
     url: string,
-    data?: D,
-    config?: AxiosRequestConfig<D>,
+    params?: Params<D>,
   ): Promise<R> {
-    return this._axios.put(url, data, config);
+    return this._axios.put(url, params?.data, params?.config);
   }
 
-  delete<T = any, R = AxiosResponse<T>, D = any>(
+  delete<T = any, R = Response<T>, D = any>(
     url: string,
-    config?: AxiosRequestConfig<D>,
+    params?: Params<D>,
   ): Promise<R> {
-    return this._axios.delete(url, config);
+    return this._axios.delete(url, params?.config);
   }
 
-  patch<T = any, R = AxiosResponse<T>, D = any>(
+  patch<T = any, R = Response<T>, D = any>(
     url: string,
-    data?: D,
-    config?: AxiosRequestConfig<D>,
+    params?: Params<D>,
   ): Promise<R> {
-    return this._axios.patch(url, data, config);
+    return this._axios.patch(url, params?.data, params?.config);
   }
 }
-
-export interface HttpInstance extends HttpAdapter {}

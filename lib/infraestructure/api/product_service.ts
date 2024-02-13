@@ -1,7 +1,7 @@
 import {IProduct} from '../../domain/interfaces/product/product';
 import {url} from '../../core/constants/constant';
 import {ProductGateway} from '../../domain/interfaces';
-import {HttpInstance} from '../../core/adapters/http';
+import {HttpInstance} from '../../core/adapters';
 
 export class ProductService implements ProductGateway {
   constructor(private readonly _http: HttpInstance) {}

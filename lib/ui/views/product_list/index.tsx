@@ -4,10 +4,11 @@ import {useHeaderHeight} from '@react-navigation/elements';
 import {CardPoints} from './components/card_points';
 import {SectionProductList} from './components/section_product_list';
 import {useProducts} from './useProducts';
+import {CategoriesList} from '../../components/organisms';
 
 export const ListProducts: React.FC = () => {
   const headerHeight = useHeaderHeight();
-  const {products} = useProducts();
+  const {products, categories} = useProducts();
 
   return (
     <View style={{...styles.container, paddingTop: headerHeight + 25}}>
@@ -15,6 +16,9 @@ export const ListProducts: React.FC = () => {
         <ActivityIndicator />
       ) : (
         <>
+          <View style={styles.containerCategories}>
+            <CategoriesList categories={categories.data!} />
+          </View>
           <CardPoints />
           <SectionProductList />
         </>
@@ -27,5 +31,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 18,
+  },
+  containerCategories: {
+    height: 100,
   },
 });

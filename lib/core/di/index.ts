@@ -1,23 +1,22 @@
-import {ProductGateway} from '../../domain/interfaces';
-import {ProductService} from '../../infraestructure';
-import {HttpAdapter, type HttpInstance} from '../adapters';
-import {ProductUseCase} from '../../domain/use_cases';
+import {ProductGateway, CategoryGateway} from '../../domain/interfaces';
+import {ProductService, CategoryService} from '../../infraestructure';
+import {HttpAdapter, GraphQLAdapter, type HttpInstance} from '../adapters';
 import {diContainer} from './di_container';
 
 const _injector = () => {
-  diContainer.registerSingleton<HttpInstance>(
-    'HttpInstance',
-    new HttpAdapter(),
+  diContainer.registerFactory<HttpInstance>('HttpInstance', new HttpAdapter());
+  diContainer.registerFactory<HttpInstance>(
+    'GraphQLInstance',
+    new GraphQLAdapter(),
   );
   diContainer.registerSingleton<ProductGateway>(
     'ProductGateway',
     new ProductService(diContainer.get<HttpInstance>('HttpInstance')),
   );
-  diContainer.registerFactory<ProductGateway>(
-    'ProductUseCase',
-    new ProductUseCase(diContainer.get<ProductGateway>('ProductGateway')),
+  diContainer.registerSingleton<CategoryGateway>(
+    'CategoryGateway',
+    new CategoryService(diContainer.get<HttpInstance>('GraphQLInstance')),
   );
-
   return diContainer;
 };
 

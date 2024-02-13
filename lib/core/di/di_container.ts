@@ -31,11 +31,15 @@ class DependencyContainer {
   }
 
   registerFactory<T>(identifier: string, dependency: T) {
-    this.register(identifier, dependency);
+    if (this.canRegister(identifier)) {
+      this.register(identifier, dependency);
+    }
   }
 
   registerSingleton<T>(identifier: string, dependency: T) {
-    this.register(identifier, dependency);
+    if (this.canRegister(identifier)) {
+      this.register(identifier, dependency);
+    }
   }
 }
 

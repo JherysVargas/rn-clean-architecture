@@ -1,5 +1,5 @@
 import {IProduct} from '../product';
 
-export abstract class ProductGateway {
-  abstract getProducts(): Promise<IProduct[]>;
+export interface ProductGateway {
+  getProducts(): Promise<IProduct[]>;
 }

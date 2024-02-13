@@ -9,16 +9,21 @@ import {IProduct} from '../../../domain/interfaces/product/product';
 import {Navigation} from '../../../domain/types/navigation_type';
 import {useCallback} from 'react';
 import {injector} from '../../../core/di';
-import {ProductGateway} from '../../../domain/interfaces';
-import {useProductsUseCase} from '../../../infraestructure/hooks/useProductUseCase';
+import {CategoryGateway, ProductGateway} from '../../../domain/interfaces';
+import {
+  useCategoryUseCase,
+  useProductsUseCase,
+} from '../../../domain/use_cases';
 
-const productUseCase = injector.get<ProductGateway>('ProductUseCase');
+const productGateway = injector.get<ProductGateway>('ProductGateway');
+const categoryGateway = injector.get<CategoryGateway>('CategoryGateway');
 
 export const useProducts = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation<Navigation>();
 
-  const {products} = useProductsUseCase({productUseCase});
+  const {products} = useProductsUseCase({productGateway: productGateway});
+  const {categories} = useCategoryUseCase({categoryGateway: categoryGateway});
 
   const handleSelectedFilter = useCallback(
     (value: FilterType): void => {
@@ -37,6 +42,7 @@ export const useProducts = () => {
 
   return {
     products,
+    categories,
     handleDetailProduct,
     handleSelectedFilter,
   };
