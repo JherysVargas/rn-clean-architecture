@@ -1,8 +1,10 @@
+import {ICategory} from '../category';
+
 export interface IProduct {
-  createdAt: Date;
-  product: string;
-  points: number;
-  image: string;
-  is_redemption: boolean;
-  id: string;
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: ICategory;
+  images: string[];
 }

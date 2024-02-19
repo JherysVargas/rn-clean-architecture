@@ -1,20 +1,9 @@
-import {CategoryGateway} from '../../interfaces';
-import {useQuery} from '@tanstack/react-query';
+import {ICategory, CategoryGateway} from '../../interfaces';
 
-type Props = {
-  categoryGateway: CategoryGateway;
-};
+export class CategoryUseCase {
+  constructor(private readonly _categoryGateway: CategoryGateway) {}
 
-export const useCategoryUseCase = ({categoryGateway}: Props) => {
-  const response = useQuery({
-    queryKey: ['categories'],
-    queryFn: () => categoryGateway.getCategories(),
-  });
-  return {
-    categories: {
-      data: response.data,
-      error: response.error,
-      isLoading: response.isLoading,
-    },
-  };
-};
+  async getCategories(): Promise<ICategory[]> {
+    return this._categoryGateway.getCategories();
+  }
+}

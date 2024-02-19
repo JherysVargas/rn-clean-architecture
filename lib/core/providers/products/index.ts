@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {initialStateProductReducer} from './initial_state';
+import {initialStateProductReducer} from './initialState';
 
 const productsSlice = createSlice({
   name: 'products',
@@ -8,12 +8,9 @@ const productsSlice = createSlice({
     setSelectedProduct(state, action) {
       state.detailProduct = action.payload;
     },
-    setSelectedFilter(state, action) {
-      state.selectedFilter = action.payload;
-    },
   },
 });
 
-export const {setSelectedProduct, setSelectedFilter} = productsSlice.actions;
+export const {setSelectedProduct} = productsSlice.actions;
 
 export default productsSlice.reducer;

@@ -1,2 +1,3 @@
-export * from './initial_state_product_reducer';
+export * from './stateProductReducer';
+export * from './stateCategoryReducer';
 export * from './navigation_type';
