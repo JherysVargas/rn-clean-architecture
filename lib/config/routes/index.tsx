@@ -5,9 +5,12 @@ import {
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
 
+// Components
+import {CustomHeader} from '../../ui/components/molecules';
+
 // Pages
 import {ListProducts} from '../../ui/views/Home';
-import {CustomHeader} from '../../ui/components/molecules';
+import {DetailProduct} from '../../ui/views/DetailProduct';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,9 +21,9 @@ const renderHeader = (props: NativeStackHeaderProps) => (
 function Routes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="ListProducts">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
-          name="ListProducts"
+          name="Home"
           component={ListProducts}
           initialParams={{
             title: 'Bienvenido de vuelta!',
@@ -30,6 +33,14 @@ function Routes() {
             title: '',
             headerTransparent: true,
             header: renderHeader,
+          }}
+        />
+        <Stack.Screen
+          name="DetailProduct"
+          component={DetailProduct}
+          options={{
+            title: '',
+            headerTransparent: true,
           }}
         />
       </Stack.Navigator>

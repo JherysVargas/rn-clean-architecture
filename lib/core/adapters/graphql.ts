@@ -1,5 +1,5 @@
 import {GraphQLClient, Variables} from 'graphql-request';
-import {HttpInstance, Params, Response} from './types';
+import {HttpInstance, Params, Response} from './interfaces';
 
 export class GraphQLAdapter implements HttpInstance {
   private readonly _client: GraphQLClient;

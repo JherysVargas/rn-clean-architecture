@@ -1,3 +1,4 @@
 export * from './http';
-export * from './types';
+export * from './interfaces';
 export * from './graphql';
+export * from './storage';

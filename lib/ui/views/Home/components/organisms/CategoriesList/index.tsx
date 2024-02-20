@@ -1,10 +1,10 @@
 import {FlatList, ListRenderItem} from 'react-native';
 import React, {useCallback, useEffect} from 'react';
-import {ICategory} from '../../../../domain/interfaces';
-import {CategoryItem} from '../../molecules';
-import Divider from '../../atoms/Divider';
+import {ICategory} from '../../../../../../domain/interfaces';
+import {CategoryItem} from '../../../../../components/molecules';
+import Divider from '../../../../../components/atoms/Divider';
 import {styles} from './styles';
-import {useProducts} from '../../../views/Home/useProducts';
+import {useProducts} from '../../../useProducts';
 
 const renderDivider = () => <Divider spacing={10} />;
 

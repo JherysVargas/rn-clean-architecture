@@ -1,10 +1,20 @@
 import {ProductGateway, CategoryGateway} from '../../domain/interfaces';
 import {CategoryUseCase, ProductUseCase} from '../../domain/use_cases';
 import {ProductService, CategoryService} from '../../infraestructure';
-import {HttpAdapter, GraphQLAdapter, type HttpInstance} from '../adapters';
+import {
+  HttpAdapter,
+  GraphQLAdapter,
+  type HttpInstance,
+  LocalStorageInstance,
+  LocalStorageAdapter,
+} from '../adapters';
 import {diContainer} from './di_container';
 
 const _injector = () => {
+  diContainer.registerFactory<LocalStorageInstance>(
+    'LocalStorageInstance',
+    new LocalStorageAdapter(),
+  );
   diContainer.registerFactory<HttpInstance>('HttpInstance', new HttpAdapter());
   diContainer.registerFactory<HttpInstance>(
     'GraphQLInstance',
@@ -12,7 +22,10 @@ const _injector = () => {
   );
   diContainer.registerSingleton<ProductGateway>(
     'ProductGateway',
-    new ProductService(diContainer.get<HttpInstance>('HttpInstance')),
+    new ProductService(
+      diContainer.get<HttpInstance>('HttpInstance'),
+      diContainer.get<LocalStorageInstance>('LocalStorageInstance'),
+    ),
   );
   diContainer.registerSingleton<ProductGateway>(
     'ProductUseCase',

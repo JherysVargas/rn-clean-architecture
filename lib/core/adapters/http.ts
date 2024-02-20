@@ -1,5 +1,5 @@
 import axios, {AxiosStatic} from 'axios';
-import {HttpInstance, Params, Response} from './types';
+import {HttpInstance, Params, Response} from './interfaces';
 
 export class HttpAdapter implements HttpInstance {
   private readonly _axios: AxiosStatic;

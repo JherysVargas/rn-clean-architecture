@@ -1,4 +1,4 @@
-import {Image, Pressable, Text, View} from 'react-native';
+import {Pressable, Text, View} from 'react-native';
 import React from 'react';
 import {IProduct} from '../../../../domain/interfaces';
 import {styles} from './styles';
@@ -8,10 +8,15 @@ import {
   PlaceholderLine,
   Fade,
 } from 'rn-placeholder';
+import ImageAnimated from '../../atoms/Image';
+import FavoriteButton from '../../atoms/FavoriteButton';
 
 type Props = {
+  heroTag?: string;
+  isFavorite?: boolean;
   isLoading?: boolean;
   product: IProduct;
+  handlePressFavorite: () => void;
   handleSelectProduct?: (product: IProduct) => void;
 };
 
@@ -36,7 +41,10 @@ const LoadingProductItem: React.FC = () => {
 
 export const ProductItem: React.FC<Props> = ({
   product,
+  heroTag,
+  isFavorite = false,
   isLoading = false,
+  handlePressFavorite,
   handleSelectProduct,
 }) => {
   if (isLoading) {
@@ -47,13 +55,25 @@ export const ProductItem: React.FC<Props> = ({
     <Pressable
       style={styles.container}
       onPress={() => handleSelectProduct?.call(this, product)}>
-      <Image source={{uri: product.images.at(0)}} style={styles.image} />
+      <ImageAnimated
+        heroTag={heroTag}
+        source={{uri: product.images.at(0)}}
+        style={styles.image}
+      />
       <View style={styles.containerDescription}>
         <View style={styles.containerTitle}>
-          <Text numberOfLines={1} style={styles.title}>
-            {product.title}
-          </Text>
-          <Text style={styles.price}>${product.price}</Text>
+          <View>
+            <Text numberOfLines={1} style={styles.title}>
+              {product.title}
+            </Text>
+            <Text style={styles.price}>${product.price}</Text>
+          </View>
+          <FavoriteButton
+            iconSize={1}
+            buttonSize={25}
+            onPress={handlePressFavorite}
+            isFavorite={isFavorite}
+          />
         </View>
         <Text style={styles.description} numberOfLines={3}>
           {product.description}

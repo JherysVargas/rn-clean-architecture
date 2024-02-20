@@ -47,3 +47,15 @@ export interface HttpInstance {
     params?: Params<D>,
   ): Promise<R>;
 }
+
+export interface LocalStorageInstance {
+  set(key: string, value: any): Promise<boolean>;
+
+  get<T>(key: string): Promise<T | null>;
+
+  update(key: string, value: any): Promise<boolean>;
+
+  removeAll(): Promise<boolean>;
+
+  removeItem(key: string): Promise<boolean>;
+}

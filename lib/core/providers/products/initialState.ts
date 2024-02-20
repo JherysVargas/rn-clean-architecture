@@ -2,4 +2,5 @@ import {InitialStateProductReducer} from '../../../domain/types/stateProductRedu
 
 export const initialStateProductReducer: InitialStateProductReducer = {
   detailProduct: undefined,
+  favorites: [],
 };

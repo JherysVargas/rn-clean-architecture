@@ -1,8 +1,10 @@
-import {setSelectedProduct} from '../../../core/providers/products';
+import {
+  setFavoritesProducts,
+  setSelectedProduct,
+} from '../../../core/providers/products';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {IProduct} from '../../../domain/interfaces/product/product';
-import {Navigation} from '../../../domain/types/navigation_type';
 import {useCallback} from 'react';
 import {injector} from '../../../core/di';
 import {CategoryGateway, ProductGateway} from '../../../domain/interfaces';
@@ -15,7 +17,7 @@ const categoryUseCase = injector.get<CategoryGateway>('CategoryUseCase');
 
 export const useProducts = () => {
   const dispatch = useDispatch();
-  const navigation = useNavigation<Navigation>();
+  const navigation = useNavigation<any>();
 
   const selectedCategory = useSelector<RootState, string>(
     state => state.categories.selectedCategory ?? '',
@@ -33,6 +35,12 @@ export const useProducts = () => {
     queryKey: ['categories'],
     queryFn: () => categoryUseCase.getCategories(),
   });
+
+  const handleGetFavorites = useCallback(async () => {
+    const favorites = await productUseCase.getFavorites();
+
+    dispatch(setFavoritesProducts(favorites));
+  }, [dispatch]);
 
   const handleSelectCategory = useCallback(
     (categoryID: string): void => {
@@ -53,6 +61,7 @@ export const useProducts = () => {
     products,
     categories,
     selectedCategory,
+    handleGetFavorites,
     handleDetailProduct,
     handleSelectCategory,
   };
